@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Star Algorithm Questions</title>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="styles.css" type="text/css">
+  <!-- <script src="main.js"></script> -->
+  <script src="p5vis.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+</head>
+
+
+<h1>Visualization of the STAR algorithm</h1>
+
+<div class="whiteLine"></div>
+
+<h2>Disclaimer DETTE FÅR THERESE LOV TIL AT SKRIVE</h2>
+<p>Det er her vi forklarer, at denne side ikke gemmer eller behandler nogen data udover til brug af denne visualisering. Det kan vi eventuelt få et "stamp of approval" på er sandt, så folk er trygge ved at indtaste deres data.</p>
+
+<body>
+  
+  <div id="q1" class="questionContainer">
+    
+    <div class="question">
+      <label for="educationLevels">Hvad er din højeste gennemførte uddan­nelse?</label>
+    </div>
+
+    <div class="dropdown">
+
+      <select name="educationLevels" id="1_dropdown">
+        <!-- these are pulled from the internet. Not sure if right ones -->
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Folkeskole</option>
+        <option value="useless">10. klasse</option>
+        <option value="useless">Gymnasiel uddannelse</option>
+        <option value="useless">Erhvervsuddannelse</option>
+        <option value="useless">Maritim uddannelse</option>
+        <option value="useless">Erhvervsakademigrad</option>
+        <option value="useless">Akademigrad</option>
+        <option value="useless">Bachelorgrad</option>
+        <option value="useless">Professionsbachelorgrad</option>
+        <option value="useless">Kunstnerisk bachelorgrad</option>
+        <option value="useless">Maritim professionsbachelorgrad</option>
+        <option value="useless">Diplomgrad</option>
+        <option value="useless">Kandidatgrad</option>
+        <option value="useless">Mastergrad</option>
+        <option value="useless">Ph.d.-grad</option>
+        <option value="useless">andet</option>
+        <option value="useless">Ingen</option>
+        <option value="useless">Ved ikke</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="q1a" class="questionContainer">
+    
+    <div class="question">
+      <label id="educationalDirection">Inden for hvilken fag­retning er du uddannet? (tag udgangs­punkt i din højst gennemførte uddannelse)</label>
+    </div>
+    
+    <div class="answer-dropdown">
+      <select name="educationDirection" id="1a_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Pædagogiske uddannelser</option>
+        <option value="useless">Humanistiske, religiøse og æstetiske uddannelser</option>
+        <option value="useless">Samfunds-, kontor- og handelsuddannelser</option>
+        <option value="useless">Naturvidenskabelige uddannelser</option>
+        <option value="useless">Industri- og håndværkstekniske uddannelser</option>
+        <option value="useless">Jordbrugs, fiskeri-, og levnedsmiddeluddannelser</option>
+        <option value="useless">Transport- og kommunikationstekniske uddannelser</option>
+        <option value="useless">Sundhedsuddannelser</option>
+        <option value="useless">Uddannelser vedrørende offentlig sikkerhed mv.</option>
+      </select>
+    </div>
+  </div>  
+  <div id="q1b" class="questionContainer">
+    <div class="question">
+      <label>inden for hvilken fagretning er du uddannet? (tag udgangspunkt i din højest gennemførste uddannelse)</label>
+    </div>
+    <div class="answer-dropdown">
+      <select  name="educationDirection" id="1b_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Ikke erhvervsrettede uddannelser (fx HF, STX)</option>
+        <option value="useless">Samfunds-, kontor- og handelsuddannelser (fx HHX)</option>
+        <option value="useless">Industri- og håndværkstekniske uddannelser (fx HTX)</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="q2" class="questionContainer">
+    <div class="question">
+      <label>Hvor hurtigt tror du, at du får et arbejde? (sæt kun ét kryds)</label>
+    </div>
+    <div class="answer-dropdown">
+      <select onchange="set_q2()" name="howFast" id="2_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="lowRisk">Jeg har fået nyt arbejde, men er ikke startet endnu</option>
+        <option value="lowRisk">Inden for 1 måned</option>
+        <option value="lowRisk">Inden for 3 måneder</option>
+        <option value="further">Inden for 6 måneder</option>
+        <option value="atRisk">Der går mere end 6 måneder</option>
+        <option value="atRisk">Jeg forventer snart at gå på barsel</option>
+        <option value="atRisk">Jeg forventer snart at gå på efterløn eller pension</option>
+        <option value="further">Ved ikke</option>
+      </select>
+    </div>
+  </div>
+  <div id="q3" class="questionContainer">
+    <div class="question">
+      <label>Er du blevet opsagt eller har du selv sagt op, fra dit tidligere arbejde?</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="whoQuit" id="3_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Jeg er blevet opsagt</option>
+        <option value="useless">Jeg har selv sagt op</option>
+        <option value="useless">Jeg har indtil nu været selvstændigt erhvervsdrivende</option>
+        <option value="useless">Jeg har ikke haft et job (Fx hvis du har modtaget syge- eller barselsdagpenge mv., eller har afbrudt din uddannelse)</option>
+        <option value="useless">Jeg er dimittend</option>
+        <option value="useless">Jeg er midlertidigt hjemsendt</option>
+        <option value="useless">Andet</option>
+      </select>
+    </div>
+  </div>
+  
+  <div id="q4" class="questionContainer">
+    
+    <div class="question">
+      <label>Hvor længe har du vidst, at du ville blive ledig?</label>
+    </div>
+
+    <div class="answer-dropdown">
+      <select name="howLong" id="4_dropdown">
+        <option value="" selected disabled hidden> choose here</option>
+        <option value="Jeg har vidst det i mindre end en uge">Jeg har vidst det i mindre end en uge</option>
+        <option value="Jeg har vidst det den seneste måned">Jeg har vidst det den seneste måned</option>
+        <option value="Jeg har vidst det de seneste tre måneder">Jeg har vidst det de seneste tre måneder</option>
+        <option value="Jeg har vidst det de seneste seks måneder">Jeg har vidst det de seneste seks måneder</option>
+        <option value="Jeg har vidst det i over seks måneder">Jeg har vidst det i over seks måneder</option>
+      </select>
+    </div> 
+  </div>
+
+  <div id="q5" class="questionContainer">
+    <div class="question">
+      <label>Hvor mange job har du søgt, fra du vidste, at du blev ledig til nu?</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="howMany" id="5_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Jeg har ikke søgt job</option>
+        <option value="useless">Jeg har søgt 1 job</option>
+        <option value="useless">Jeg har søgt 2-5 job</option>
+        <option value="useless">Jeg har søgt over 5 job</option>
+      </select>
+    </div>
+  </div>
+  <div id="q6" class="questionContainer">
+    <div class="question">
+      <label>Hvordan vurderer du dine jobmuligheder inden for de områder, hvor du søger arbejde?</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="prospects" id="6_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Mine jobmuligheder er gode</option>
+        <option value="useless">Mine jobmuligheder er nogenlunde gode</option>
+        <option value="useless">Mine jobmuligheder er ikke så gode</option>
+        <option value="useless">Mine jobmuligheder er dårlige</option>
+        <option value="useless">Ved ikke</option>
+      </select>
+    </div>
+  </div>
+  <div id="q7" class="questionContainer">
+    <div class="question">
+      <label>Ved du hvilket arbejde du gerne vil have?</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="whatWork" id="7_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Jeg ved lige hvilket arbejde, jeg gerne vil have</option>
+        <option value="useless">Jeg har en idé om hvilke typer arbejde, jeg gerne vil have</option>
+        <option value="useless">Jeg har nogle få, men uklare idéer om hvilke typer arbejde, jeg gerne vil have</option>
+        <option value="useless">Jeg ved ikke hvilke typer arbejde, jeg gerne vil have</option>
+      </select>
+    </div>
+  </div>
+  <div id="q8" class="questionContainer">
+    <div class="question">
+      <label>Hvordan søger du/planlægger du at søge arbejde? (sæt gerne flere kryds)</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="how" id="8_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Svarer på annoncer i aviser, blade, internet, mv.</option>
+        <option value="useless">Sender uopfordrede ansøgninger</option>
+        <option value="useless">Henvender mig personligt eller telefonisk til arbejdsgiver</option>
+        <option value="useless">Bruger sociale medier (Facebook, LinkedIn mv.)</option>
+        <option value="useless">Bruger mit netværk (kontaktet venner, familie, tidligere studie- eller arbejdskollegaer mv.)</option>
+        <option value="useless">Vikarbureau</option>
+      </select>
+    </div>
+  </div>
+  <div id="q9" class="questionContainer">
+    <div class="question">
+      <label>Hvilke af følgende overvejelser gør du dig for at øge dine jobmuligheder? (sæt gerne flere kryds)</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="thoughts" id="9_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Jeg overvejer at skifte branche</option>
+        <option value="useless">Jeg overvejer at pendle langt</option>
+        <option value="useless">Jeg overvejer at flytte</option>
+        <option value="useless">Jeg overvejer at tage en anden uddannelse</option>
+        <option value="useless">Jeg overvejer at gå ned i løn</option>
+        <option value="useless">Jeg overvejer ingen af de nævnte</option>
+      </select>
+    </div>
+  </div>
+  <div id="q10" class="questionContainer">
+    <div class="question">
+      <label>Er der noget, der gør det svært for dig at få et arbejde?</label>
+    </div>
+    <div class="answer-dropdown">
+      <!-- TODO if this == true, show q1a -->
+      <select name="difficult" id="10_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="true">Ja</option>
+        <option value="false">Nej</option>
+        <option value="false">Ved ikke</option>
+      </select>
+    </div>
+  </div>
+  <div id="q10a" class="questionContainer">
+    <div class="question">
+      <label>"Hvis "ja" i spørgsmål 10: Hvad gør det svært for dig at få et arbejde? (sæt gerne flere kryds)</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="whyDifficult" id="10a_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="useless">Mit fysiske helbred</option>
+        <option value="useless">Mit psykiske helbred</option>
+        <option value="useless">Personlige- eller sociale forhold</option>
+        <option value="useless">Økonomiske forhold</option>
+        <option value="useless">Alkohol- eller stofmisbrug</option>
+        <option value="useless">Manglende læse- stave eller regnefærdigheder</option>
+        <option value="useless">Manglende IT færdigheder</option>
+        <option value="useless">Sprogbarrierer</option>
+        <option value="useless">Andet, angiv gerne</option>
+      </select>
+
+      <!-- TODO this should pop out if last option is selected -->
+      <input type="text">
+    </div>
+  </div>
+  
+  <!-- things that are normally pulled from your file -->
+  <div id="pulledFromFile">
+    <p>
+      below are the data usually provided by your public file.
+      Since we do not have that information, we ask that you provide this here.
+    </p>
+  </div>
+
+  <div id="q11" class="questionContainer">
+    <div class="question">
+      <label>What is your nationality?</label>
+    </div>
+    <div class="answer-dropdown">
+      <select onchange="set_q11()" name="origin" id="11_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="further">Danish</option>
+        <option value="further">Non-Western immigrant</option>
+        <option value="further">Origin unknown</option>
+        <option value="atRisk">Western immigrant</option>
+        <option value="atRisk">Western descendant</option>
+        <option value="atRisk">Non-Western descendant</option>
+      </select>
+    </div>
+  </div>
+
+  
+  <div id="q12" class="questionContainer">
+    <div class="question">
+      <label>What is your current age?</label>
+    </div>
+    <div class="answer-text">
+      <input onchange="set_q12()" type="number" id="12_input">
+    </div>
+  </div>
+  
+  <div id="q13" class="questionContainer">
+    <div class="question">
+      <label>How many months out of the last 26 months have you been working?</label>
+      <!-- Det her skal være et input field. Vi laver matematikken bagved -->
+    </div>
+    <div class="answer-dropdown">
+      <select onchange="set_q13()" name="employRate" id="13_dropdown">
+        <option value="" selected disabled hidden>choose here</option>
+        <option value="lowRisk">Employment rate less than 0.0809</option>
+        <option value="atRisk">Employment rate more or equal to 0.0809</option>
+        <option value="atRisk">Employment rate unknown</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sketchButton">
+      <label for="sketchButton" onclick="showViz()"> go to Visualization</label>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</body>
+</html>
