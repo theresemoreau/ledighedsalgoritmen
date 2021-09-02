@@ -53,8 +53,8 @@ canvas {
 
 .fancyDropdown {
   padding: 10px;
-  color: black;
-  background: white;
+  color: white;
+  background: black;
   cursor: pointer;
 }
 .fancyDropdown:hover {
