@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The STAR unemployment algorithm</title>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="styles.css" type="text/css">
+  <!-- <script src="main.js"></script> -->
+  <script src="p5vis.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+</head>
+
+<!-- <div class="whiteLine"></div> -->
+
+<body>
+  <div class="opening-screen">
+    <div class="header">
+      <img src="logo_confrontingdata.png" alt="confronting Data logo">
+      <h1>Vizualizing the STAR unemployment algorithm</h1>
+      <!-- <h1>I AM ALSO HEADING</h1> -->
+    </div>
+  
+    <div class="disclaimer">
+      <div class="disclaimer-text">
+        <p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra scelerisque tortor, sit amet interdum quam euismod sit amet. Aliquam in eleifend quam, vitae vehicula urna. Cras lectus tellus, tempor ac pulvinar eget, sodales at enim. Etiam semper eu enim sed aliquam. Praesent et eros et ex ultrices ullamcorper. Phasellus orci sapien, efficitur egestas ligula sit amet, commodo interdum magna. Nam congue, lectus a lacinia convallis, sapien erat semper risus, vitae iaculis quam erat sit amet purus. Quisque vitae blandit mi. Pellentesque at velit scelerisque, sodales magna et, viverra augue. Nunc venenatis felis non placerat sollicitudin. Nullam volutpat vulputate velit, ut posuere sem luctus sit amet.
+			<br>
+			<br>
+			NB! This webapp does not use cookies, your data will not be passed on to third paries nor will we save and store your data.
+        </p> 
+      </div>
+      <div class="accept-container">
+        <label onclick="goToQuestions()" class="accept-disclaimer">I understand.</label>
+      </div>
+    </div>
+  </div>
+ 
+
+ 
+  <div id="q1" class="questionContainer">
+  
+    <div class="question">
+      <label for="educationLevels">What is your highest completed education level??</label>
+    </div>
+
+    <div class="dropdown">
+      <select name="educationLevels" id="1_dropdown">
+        <!-- these are pulled from the internet. Not sure if right ones -->
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">Option 1</option>
+      </select>
+    </div>
+  </div>
+
+
+
+  <div id="q1a" class="questionContainer">
+    
+    <div class="question">
+      <label id="educationalDirection">In which field of study are you educated? (based on your highest completed education)</label>
+    </div>
+    
+    <div class="answer-dropdown">
+      <select name="educationDirection" id="1a_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">Pedagogical</option>
+        <option value="useless">Humanities, religion or aesthetics</option>
+        <option value="useless">Community-, office-, and business</option>
+        <option value="useless">Sciences</option>
+        <option value="useless">Industry or craftsman</option>
+        <option value="useless">Agricultural-, fisheries-, and food education</option>
+        <option value="useless">Transport and communication engineering</option>
+        <option value="useless">Health</option>
+        <option value="useless">Public safety</option>
+		<option value="useless">Non-vocational education (e.g. HF, STX)</option>
+		<option value="useless">Community education, office education and trade education (e.g. HHX)</option>
+		<option value="useless">Industrial and craft technical education (e.g. HTX)</option>
+      </select>
+    </div>
+  </div>  
+
+
+
+<!-- 
+  <div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">select here</button>
+    <div id="myDropdown" class="dropdown-content" onclick="set_demo()">
+      <option value="yes">yes</option>
+      <option value="no">no</option>
+      <option value="maybe">maybe</option>
+    </div>
+  </div>
+-->
+
+
+
+  <div id="q2" class="questionContainer">
+  
+    <div class="question">
+      <label>How long do you think it will take before you get a job?</label>
+    </div>
+	
+    <div class="answer-dropdown">
+      <select onchange="set_q2()" name="howFast" id="2_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="lowRisk">I have a new job, but have not started yet</option>
+        <option value="lowRisk">Within 1 month</option>
+        <option value="lowRisk">Within 3 months</option>
+        <option value="further">Within 6 months</option>
+        <option value="atRisk">It will be more than 6 months</option>
+        <option value="atRisk">I expect to go on maternity leave soon</option>
+        <option value="atRisk">I expect to retire soon</option>
+        <option value="further">Don’t know</option>
+      </select>
+    </div>
+  </div>
+  
+  
+  
+  <div id="q3" class="questionContainer">
+  
+    <div class="question">
+      <label>Were you terminated, or did you resign, from your previous job?</label>
+    </div>
+	
+    <div class="answer-dropdown">
+      <select name="whoQuit" id="3_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">I was terminated</option>
+        <option value="useless">I resigned</option>
+        <option value="useless">I have been self-employed until now</option>
+        <option value="useless">I did not have a job (e.g. if you have received sickness or maternity benefits, etc., or have interrupted your education)</option>
+        <option value="useless">I am a graduate</option>
+        <option value="useless">I have been temporarily sent home</option>
+        <option value="useless">Other</option>
+      </select>
+    </div>
+  </div>
+
+
+
+  <div id="q4" class="questionContainer">
+    
+    <div class="question">
+      <label>For how long have you known that you would be unemployed?</label>
+    </div>
+
+    <div class="answer-dropdown">
+      <select name="howLong" id="4_dropdown">
+        <option value="" selected disabled hidden> Choose here</option>
+        <option value="useless">I have known it for less than a week</option>
+        <option value="useless">I have known it for the past month</option>
+        <option value="useless">I have known it for the last three months</option>
+        <option value="useless">I have known it for the previous six months</option>
+        <option value="useless">I have known for over six months</option>
+      </select>
+    </div> 
+  </div>
+
+
+
+  <div id="q5" class="questionContainer">
+  
+    <div class="question">
+      <label>How many jobs have you applied for since you became unemployed?</label>
+    </div>
+  
+  <div class="answer-dropdown">
+      <select name="howMany" id="5_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">I have not applied for any jobs</option>
+        <option value="useless">I have applied for 1 job</option>
+        <option value="useless">I have applied for 2-5 jobs</option>
+        <option value="useless">I have applied for over 5 jobs</option>
+      </select>
+    </div>
+  </div>
+  
+  
+
+  <div id="q6" class="questionContainer">
+    <div class="question">
+      <label>How do you assess your job opportunities in the areas where you are looking for work?</label>
+    </div>
+    <div class="answer-dropdown">
+      <select name="prospects" id="6_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">My job opportunities are good</option>
+        <option value="useless">My job opportunities are fairly good</option>
+        <option value="useless">My job opportunities are not so good</option>
+        <option value="useless">My job opportunities are poor</option>
+        <option value="useless">Don’t know</option>
+      </select>
+    </div>
+  </div>
+  
+  
+
+  <div id="q7" class="questionContainer">
+  
+    <div class="question">
+      <label>Do you know what job you would like to have?</label>
+    </div>
+	
+    <div class="answer-dropdown">
+      <select name="whatWork" id="7_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">I know exactly what job I want</option>
+        <option value="useless">I have an idea of what types of job I would like to have</option>
+        <option value="useless">I have a few vague ideas about what kinds of job I would like to have</option>
+        <option value="useless">I do not know what kind of job I would like to have</option>
+      </select>
+    </div>
+  </div>
+  
+  
+  
+  <div id="q8" class="questionContainer">
+  
+    <div class="question">
+      <label>How do you apply for/plan to apply for jobs? (You may check multiple boxes)</label>
+    </div>
+	
+    <div class="answer-dropdown">
+      <select name="how" id="8_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">Responding to advertisements in newspapers, magazines, the internet, etc.</option>
+        <option value="useless">Sending unsolicited job applications</option>
+        <option value="useless">Contacting employers personally or by phone</option>
+        <option value="useless">Using social media (Facebook, LinkedIn, etc.)</option>
+        <option value="useless">Using my network (contacting friends, family, former study or work colleagues, etc.)</option>
+        <option value="useless">Temp agency</option>
+      </select>
+    </div>
+  </div>
+  
+  
+  
+  <div id="q9" class="questionContainer">
+  
+    <div class="question">
+      <label>Which of the following considerations are you making to increase your job opportunities? (You may check multiple boxes)</label>
+    </div>
+    
+	<div class="answer-dropdown">
+      <select name="thoughts" id="9_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">I am considering changing industry</option>
+        <option value="useless">I am considering commuting long distances</option>
+        <option value="useless">I am considering moving</option>
+        <option value="useless">I am considering taking another education</option>
+        <option value="useless">I am considering pay cuts</option>
+        <option value="useless">I am not considering any of the above</option>
+      </select>
+    </div>
+  </div>
+  
+  
+  
+  <div id="q10" class="questionContainer">
+  
+    <div class="question">
+      <label>Is there anything that makes it difficult for you to get a job?</label>
+    </div>
+	
+    <div class="answer-dropdown">
+      <!-- TODO if this == true, show q1a -->
+      <select name="difficult" id="10_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">Yes</option>
+        <option value="useless">No</option>
+        <option value="useless">Don't know</option>
+      </select>
+    </div>
+  </div>
+  
+  
+  
+  <div id="q10a" class="questionContainer">
+  
+    <div class="question">
+      <label>If ”yes” in previous question: What is making it difficult for you to get a job? (You may check multiple boxes)</label>
+    </div>
+	
+    <div class="answer-dropdown">
+      <select name="whyDifficult" id="10a_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="useless">My physical health</option>
+        <option value="useless">My mental health</option>
+        <option value="useless">Personal or social conditions</option>
+        <option value="useless">Financial conditions</option>
+        <option value="useless">Alcohol or drug abuse</option>
+        <option value="useless">Lack of reading, spelling or math skills</option>
+        <option value="useless">Lack of IT skills</option>
+        <option value="useless">Language barriers</option>
+        <option value="useless">Other, please specify</option>
+      </select>
+
+      <!-- TODO this should pop out if last option is selected -->
+      <input type="text">
+    </div>
+  </div>
+  
+  
+  
+  <!-- things that are normally pulled from your file -->
+  <div id="pulledFromFile">
+    <p>
+		Below information is usually provided by Danish Agency for Labour Market and Recruitment. As we do not have access to your register data, we ask that you provide this information here.
+    </p>
+  </div>
+
+
+
+  <div id="q12" class="questionContainer">
+  
+    <div class="question">
+      <label>What is your age?</label>
+    </div>
+	
+    <div class="answer-text">
+      <input onchange="set_q12()" type="number" id="12_input">
+    </div>
+  </div>
+
+
+
+  <div id="q11" class="questionContainer">
+  
+    <div class="question">
+      <label>What is your origin?</label>
+    </div>
+	
+    <div class="answer-dropdown">
+      <select onchange="set_q11()" name="origin" id="11_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="further">Danish</option>
+        <option value="atRisk">Western immigrant</option>
+        <option value="atRisk">Western descendant</option>
+        <option value="further">Non-western immigrant</option>
+        <option value="atRisk">Non-Western descendant</option>
+        <option value="further">Origin unknown</option>
+      </select>
+    </div>
+  </div>
+
+
+ 
+  <div id="q13" class="questionContainer">
+  
+    <div class="question">
+      <label>Of the past three years (36 months), how many months have you been employed?</label>
+      <!-- Det her skal være et input field. Vi laver matematikken bagved -->
+    </div>
+	
+    <div class="answer-dropdown">
+      <select onchange="set_q13()" name="employRate" id="13_dropdown">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="lowRisk">Employment rate less than 0.0809</option>
+        <option value="atRisk">Employment rate more or equal to 0.0809</option>
+        <option value="atRisk">Employment rate unknown</option>
+      </select>
+    </div>
+  </div>
+
+
+
+  <div class="button-container">
+    <label class="sketchButton" onclick="showViz()"> 
+      Go to Visualization
+    </label>
+  </div>
+  
+  <br>
+  <br>
+  <br>
+  <br>
+</body>
+</html>

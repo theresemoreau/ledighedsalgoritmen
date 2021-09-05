@@ -1,0 +1,195 @@
+/* @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap'); */
+
+@font-face {
+  font-family: myFirstFont;
+  src: url(AdobeGaramondProRegular.ttf);
+}
+
+.opening-screen {
+  height: 100vh;
+}
+.header {
+  height: 400px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  /* position: relative; */
+  /* margin-bottom: 12%; */
+}
+h1 {
+  border-bottom: 2px;
+  font-size: 40px;
+  border-color: white;
+  transform: translateY(50%);
+}
+img {
+  transform: scale(0.4) translateX(-500px);
+}
+body {
+  font-family: myFirstFont;
+  background-color: black;
+  color: white;
+  font-size: x-large;
+  
+}
+.whiteLine {
+  background-color: white;
+  height: 1px;
+}
+#q1 {
+  margin-top: 50px;
+}
+.disclaimer {
+  top: 50%;
+  background-color: black;
+  height: 4000px;
+}
+.disclaimer-text {
+  background-color: white;
+  color: black;
+  /* margin-top: 12%; */
+
+  /* padding-top: 50px; */
+  padding-left: 20px;
+  padding-bottom: 50px;
+
+  margin-bottom: 100px;
+}
+
+.accept-container {
+  /* align-items: center; */
+  /* background-color: red; */
+  height: 200px;
+}
+
+.accept-disclaimer {
+  margin-top: 200px;
+  background-color: white;
+  color: black;
+  padding: 20px;
+  margin: 45%;
+  border-radius: 5px;
+  text-align: center;
+}
+.accept-disclaimer:hover {
+  background-color: grey;
+}
+
+.questionContainer {
+  padding-left: 40px;
+  /* margin-left: 40px; */
+  margin-bottom: 50px;
+}
+/* for the sketch? */
+/* canvas {
+  display: block;
+} */
+select {
+  border: none;
+  background-color: rgb(37, 37, 37);
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+}
+#pulledFromFile {
+  padding-left: 40px;
+}
+
+option {
+  border: none;
+  padding-top: 20px;
+}
+
+
+ 
+.questionContainer {
+  border-top: 1px solid white;
+  /* border-bottom: 1px solid white; */
+  /* margin: 16px 20px 100px 0; */
+
+  /* padding: 0px; */
+
+} 
+
+.question {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.answer-dropdown {
+  margin: 16px 20px 100px 0;
+}
+
+.button-container {
+  background-color: white;
+}
+.sketchButton {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  /* text-align: center; */
+  margin-left: 40px;
+  
+  padding: 4px 16px 8px 16px;
+  margin-right: 1400px;
+  
+}
+.sketchButton:hover {
+  background: grey;
+} 
+
+ /* Dropdown Button */
+ .dropbtn {
+  font-family: myFirstFont;
+  background-color: white;
+  margin-left: 40px;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: grey;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  margin-left: 40px;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+/* Links inside the dropdown */
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;} 
+
+.dropdown-content option {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content option:hover {background-color: #ddd}
