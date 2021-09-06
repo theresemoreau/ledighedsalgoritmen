@@ -86,7 +86,7 @@ body {
 } */
 select {
   border: none;
-  background-color: rgb(37, 37, 37);
+  background-color: rgb(0,0,0);
   color: white;
   padding: 20px;
   font-size: 20px;
@@ -134,7 +134,7 @@ option {
   
 }
 .sketchButton:hover {
-  background: grey;
+  background: black;
 } 
 
  /* Dropdown Button */
@@ -151,7 +151,7 @@ option {
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: grey;
+  background-color: black;
 }
 
 /* The container <div> - needed to position the dropdown content */
