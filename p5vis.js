@@ -213,13 +213,13 @@ function setup() {
         vertSpacing = currentWindowHeight / 6;
         noStroke();
         
-        expectationBox = new Box("how quickly do you believe\nthat you will get a job?");
+        expectationBox = new Box("How quickly do you believe\nthat you will get a job?");
         originBox = new Box("Origin");
         nope2Box = new Box("High risk of\nlong term unemployment");
         yes2Box = new Box("Low risk of\nlong term unemployment");
         nope3Box = new Box("High risk of\nlong term unemployment");
         ageBox = new Box("Age");
-        employRateBox = new Box("employment rate");
+        employRateBox = new Box("Employment rate");
         nope4Box = new Box("High risk of\nlong term unemployment");
         yes5Box = new Box("Low risk of\nlong term unemployment");
         nope5Box = new Box("High risk of\nlong term unemployment");    

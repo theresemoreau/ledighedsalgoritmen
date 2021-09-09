@@ -37,10 +37,7 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra scelerisque tortor, sit amet
           interdum quam euismod sit amet. Aliquam in eleifend quam, vitae vehicula urna. Cras lectus tellus, tempor ac
           pulvinar eget, sodales at enim. Etiam semper eu enim sed aliquam. Praesent et eros et ex ultrices ullamcorper.
-          Phasellus orci sapien, efficitur egestas ligula sit amet, commodo interdum magna. Nam congue, lectus a lacinia
-          convallis, sapien erat semper risus, vitae iaculis quam erat sit amet purus. Quisque vitae blandit mi.
-          Pellentesque at velit scelerisque, sodales magna et, viverra augue. Nunc venenatis felis non placerat
-          sollicitudin. Nullam volutpat vulputate velit, ut posuere sem luctus sit amet.
+          Phasellus orci sapien, efficitur egestas ligula sit amet, commodo interdum magna.
           <br>
           <br>
           NB! This webapp does not use cookies, your data will not be passed on to third paries nor will we save and
@@ -514,7 +511,7 @@
 		<div class="row">
 		<div class="col-2-question">
 			<div style="width:375px;">
-				<input id="ageInput" type="number" style="width:375px; height: 40px;" min="1" max="120" placeholder="Enter your age">
+				<input onclick="calcPath(),   showViz()"  id="ageInput" type="number" style="width:375px; height: 40px;" min="1" max="120" placeholder="Enter your age">
 			</div>
 		</div>
 		</div>
@@ -539,7 +536,7 @@
 		<div class="row">
 		<div class="col-2-question">
 			<div style="width:375px;">
-				<input id="employrateInput" type="number" min="0" max="36" style="width:375px; height: 40px;" placeholder="Enter your rate of employment">
+				<input onclick="calcPath(),   showViz()" id="employrateInput" type="number" min="0" max="36" style="width:375px; height: 40px;" placeholder="Enter your rate of employment">
 			</div>
 		</div>
 		</div>
