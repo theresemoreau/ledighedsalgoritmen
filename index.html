@@ -1,65 +1,589 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>The STAR unemployment algorithm</title>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="styles.css" type="text/css">
-  
+
   <script src="p5vis.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 </head>
 
 
 <body>
 
+  <div id="scrollButtonContainer">
+    <div onclick="scrollUp()" class="scrollButton" id="scrollUp">˄</div>
+    <div onclick="scrollDown()" class="scrollButton" id="scrollDown">˅</div>
+  </div>
 
   <section id="opening_screen">
   
-	<div class="row-1">
-		<div class="col-1">
-			<img src="logo_confrontingdata.png">
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-2">
-			<h1>Vizualizing the STAR unemployment algorithm</h1>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra scelerisque tortor, sit amet interdum quam euismod sit amet. Aliquam in eleifend quam, vitae vehicula urna. Cras lectus tellus, tempor ac pulvinar eget, sodales at enim. Etiam semper eu enim sed aliquam. Praesent et eros et ex ultrices ullamcorper. Phasellus orci sapien, efficitur egestas ligula sit amet, commodo interdum magna. Nam congue, lectus a lacinia convallis, sapien erat semper risus, vitae iaculis quam erat sit amet purus. Quisque vitae blandit mi. Pellentesque at velit scelerisque, sodales magna et, viverra augue. Nunc venenatis felis non placerat sollicitudin. Nullam volutpat vulputate velit, ut posuere sem luctus sit amet.
-				<br>
-				<br>
-				NB! This webapp does not use cookies, your data will not be passed on to third paries nor will we save and store your data.
-			</p>
-		</div>
-	</div>
-	
+    <div class="row">
+      <div class="col-1">
+        <img src="logo_confrontingdata.png" alt="Confronting Data logo">
+      </div>
+    </div>
+
+    <div class="row">
+	<div class="col-2">
+        <h1>Vizualizing the STAR unemployment algorithm</h1>
+        <!-- lorem ipsum -->
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra scelerisque tortor, sit amet
+          interdum quam euismod sit amet. Aliquam in eleifend quam, vitae vehicula urna. Cras lectus tellus, tempor ac
+          pulvinar eget, sodales at enim. Etiam semper eu enim sed aliquam. Praesent et eros et ex ultrices ullamcorper.
+          Phasellus orci sapien, efficitur egestas ligula sit amet, commodo interdum magna. Nam congue, lectus a lacinia
+          convallis, sapien erat semper risus, vitae iaculis quam erat sit amet purus. Quisque vitae blandit mi.
+          Pellentesque at velit scelerisque, sodales magna et, viverra augue. Nunc venenatis felis non placerat
+          sollicitudin. Nullam volutpat vulputate velit, ut posuere sem luctus sit amet.
+          <br>
+          <br>
+          NB! This webapp does not use cookies, your data will not be passed on to third paries nor will we save and
+          store your data.
+        </p>
+    </div>
+    </div>
+
 	<div class="row">
 		<div class="col-3"></div>
-	</div> 
-  
-  </section>
-  
-  
-  <section id="question_screen">
-  This is question_screen
-  </section>
+	</div>
+	
+	</section>
+
+	<!-- QUESTION 1 -->
+	<section id="question_screen">
+    <div id="q1" class="questionContainer">
+	
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>What is your highest completed education level?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div id="answer1" class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option value="0">Enter answer</option>
+				<option value="lowRisk">TO BE FILLED</option>
+				<option value="lowRisk">TO BE FILLED</option>
+				<option value="lowRisk">TO BE FILLED</option>
+				<option value="further">TO BE FILLED</option>
+				<option value="atRisk">TO BE FILLED</option>
+				<option value="atRisk">TO BE FILLED</option>
+				<option value="atRisk">TO BE FILLED</option>
+				<option value="further">TO BE FILLED</option>
+				</select>
+			</div>
+		</div>
+		</div>
+		
+    </div>
+	</section>
+
+
+    <!-- QUESTION 1a -->
+    <section id="question_screen">
+	<div id="q1a" class="questionContainer">
+	
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>In which field of study were you educated? (based on your highest completed education qualification)</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div id="answer1a" class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option value="0">Enter answer</option>
+				<option value="lowRisk">Humanities, religion or aesthetics</option>
+				<option value="lowRisk">Non-vocational</option>
+				<option value="lowRisk">Industry or craftsman</option>
+				<option value="further">Agricultural-, fisheries- and food</option>
+				<option value="atRisk">Science</option>
+				<option value="atRisk">Pedagogica</option>
+				<option value="atRisk">Community-, office- and business</option>
+				<option value="further">Health</option>
+				<option value="further">Transport and communication engineering</option>
+				<option value="further">Education on public safety</option>
+				<option value="further">Other</option>
+				</select>
+			</div>
+		</div>
+		</div>
+
+    </div>
+	</section>
+
+
+
+    <!-- QUESTION 2 -->
+	<section id="question_screen">
+    <div id="q2" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>How long do you think it will take before you get a job?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option value="0">Enter answer</option>
+				<option value="lowRisk">I have a new job, but I haven't started yet</option>
+				<option value="lowRisk">Within 1 month</option>
+				<option value="lowRisk">Within 3 months</option>
+				<option value="further">Within 6 months</option>
+				<option value="atRisk">It will be more than 6 months</option>
+				<option value="atRisk">I expect to go on maternity leave soon</option>
+				<option value="atRisk">I expect to retire soon</option>
+				<option value="further">Don't know</option>
+				</select>
+			</div>
+		</div>
+		</div>
+	  
+    </div>
+	</section>
+
+
+
+    <!-- QUESTION 3 -->
+	<section id="question_screen">
+	<div id="q3" class="questionContainer">
+	
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>Were you terminated, or did you resign, from your previous job?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option>Enter answer</option>
+				<option value="lowRisk">I was terminated</option>
+				<option value="lowRisk">I resigned</option>
+				<option value="lowRisk">I have been self-employed until now</option>
+				<option value="further">I did not have a job (e.g. if you have received sickness or maternity benifits, etc., or have interrupted your education)</option>
+				<option value="atRisk">I am a graduate</option>
+				<option value="atRisk">I have been temporarily sent home</option>
+				<option value="atRisk">Other</option>
+				</select>
+			</div>
+		</div>
+		</div>
+	 
+    </div>
+	</section>
+	
+	
+	
+    <!-- QUESTION 4 -->
+	<section id="question_screen">
+	<div id="q4" class="questionContainer">
+	
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>For how long have you known that you would be unemployed?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option>I have know it for less than a week</option>
+				<option>I have known it for the past month</option>
+				<option>I have known it for the past tree months</option>
+				<option>I have known it for the previous six months</option>
+				<option>I have known for over six months</option>
+				</select>
+			</div>
+		</div>
+		</div>
+
+    </div>
+	</section>
+
+
+
+    <!-- QUESTION 5 -->
+	<section id="question_screen">
+	<div id="q5" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>How many jobs have you applied for since you became unemployed?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option>I have not applied for any jobs</option>
+				<option>I have applied for 1 job</option>
+				<option>I have applied for 2-5 jobs</option>
+				<option>I have applied for over 5 jobs</option>
+				</select>
+			</div>
+		</div>
+		</div>
+    
+	</div>
+	</section>
+
+
+
+    <!-- QUESTION 6 -->
+	<section id="question_screen">
+	<div id="q6" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>How do you assess your job opportunities in the areas where you are looking for work?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option>My job opportunities are good</option>
+				<option>My job opportunities are fairly good</option>
+				<option>My job opportunities are not so good</option>
+				<option>My job opportunities are poor</option>
+				<option>Don't know</option>
+				</select>
+			</div>
+		</div>
+		</div>
+	  
+    </div>
+	</section>
+
+
+
+    <!-- QUESTION 7 -->
+	<section id="question_screen">
+	<div id="q7" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>Do you know what job you would like to have?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div  class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option>I know exactly what kind of job I want</option>
+				<option>I have an idea of what types of job I would like to have</option>
+				<option>I have a few vague ideas about what kinds of job I would like to have</option>
+				<option>I do not know whawt kind of job I would like to have</option>
+				</select>
+			</div>
+		</div>
+		</div>
+	  
+    </div>
+	</section>
+
+
+
+    <!-- QUESTION 8 -->
+	<section id="question_screen">
+	<div id="q8" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>How do you apply for/plan to apply for jobs? (You may check multiple boxes)</h3>
+			</div>
+		</div>
+		</div>
+			
+		<div class="row">
+		<div class="col-2-question">
+			<div class="checkBoxes" style="width:800px;">
+				<input type="checkbox" id="myCheck"> Responding to advertisements in newspapers, magazines, the internet, etc. <br>
+				<input type="checkbox" id="myCheck"> Sending uncolicited job applications <br>
+				<input type="checkbox" id="myCheck"> Contacting employers personally or by phone <br>
+				<input type="checkbox" id="myCheck"> Using social media (Facebook, LinkedIn, etc.) <br>
+				<input type="checkbox" id="myCheck"> Using my network (contacting friends, family, former study or work colleagues, etc.) <br>
+				<input type="checkbox" id="myCheck"> Temp agency <br>
+			</div>
+		</div>
+		</div>
+    
+    </div>
+	</section>
+	
+	
+	
+    <!-- QUESTION 9 -->
+	<section id="question_screen">
+	<div id="q9" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>Which of the following considerations are you making to increase your job opportunities? (You may check multiple boxes)</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="checkBoxes" style="width:800px;">
+				<input type="checkbox" id="myCheck"> I am considering changing industry <br>
+				<input type="checkbox" id="myCheck"> I am considering commuting long distances <br>
+				<input type="checkbox" id="myCheck"> I am considering moving <br>
+				<input type="checkbox" id="myCheck"> I am considering taking another education <br>
+				<input type="checkbox" id="myCheck"> I am considering pay cuts <br>
+				<input type="checkbox" id="myCheck"> I am not considering any of the above <br>
+			</div>
+		</div>
+		</div>
+	  
+    </div>
+	</section>
+
+
+
+    <!-- QUESTION 10 -->
+	<section id="question_screen">
+	<div id="q10" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>Is there anything that makes it difficult for you to get a job?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option>Enter answer</option>
+				<option>Yes</option>
+				<option>No</option>
+				<option>Don't know</option>
+				</select>
+			</div>
+		</div>
+		</div>
+	  
+    </div>
+	</section>
+
+
+
+    <!-- QUESTION 10a -->
+	<section id="question_screen">
+    <div id="q10a" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>If yes, what is making it difficult for you to get a job? (You may check multiple boxes)</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div class="checkBoxes" id="answer8" style="width:800px;">
+				<input type="checkbox" id="myCheck"> My physical health <br>
+				<input type="checkbox" id="myCheck"> My mental health <br>
+				<input type="checkbox" id="myCheck"> Personal or social conditions <br>
+				<input type="checkbox" id="myCheck"> Financial conditions <br>
+				<input type="checkbox" id="myCheck"> Alcohol addication or drug abuse <br>
+				<input type="checkbox" id="myCheck"> Lack of reading, spelling or math skills <br>
+				<input type="checkbox" id="myCheck"> Lack of IT skills <br>
+				<input type="checkbox" id="myCheck"> Language Barriers <br>
+				<input type="checkbox" id="myCheck"> Other, please specify <br>
+			</div>
+		</div>
+		</div>
+        
+    </div>
+	</section>
+
+
+
+    <!-- INDSÆT HERFRA -->
+	<section id="info">
+	
+		<div class="row">
+			<div class="col-1-info"></div>
+		</div>
+		
+		<div class="row">
+			<div class="col-2-info">
+				<h1>Almost there...</h1>
+				<p>
+					The Danish Agency for Labour Market and Recruitment provides the STAR algorithm with your register data.
+					As we do not have access to your register data, we ask that you provide this information below.
+				</p>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-3-info"></div>
+		</div>
+		
+    </section>
+	
+	
+
+    <!-- NATIONALITY -->
+	<section id="question_screen">
+    <div id="q11" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>What is your origin?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">	
+			<div class="custom-select" style="width:400px;">
+				<select id="og-select">
+				<option value="0">Enter answer</option>
+				<option value="further">Danish</option>
+				<option value="atRisk">Western immigrant</option>
+				<option value="atRisk">Western descendant</option>
+				<option value="further">Non-western immigrant</option>
+				<option value="atRisk">Non-western descendant</option>
+				<option value="further">Origin unkown</option>
+				</select>
+			</div>
+		</div>
+		</div>
+		
+	</div>
+	</section>
+	
+	
+	
+    <!-- AGE -->
+	<section id="question_screen">
+    <div id="q12" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>How old are you?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div style="width:400px;">
+				<input id="ageInput" type="number" style="width:400px; height: 40px;" min="1" max="120" placeholder="Enter your age">
+			</div>
+		</div>
+		</div>
+
+	</div>
+	</section>
+	
+	
+
+    <!-- EMPLOYMENT RATE  -->
+	<section id="question_screen">
+    <div id="q13" class="questionContainer">
+
+		<div class="row">
+		<div class="col-1-question">
+			<div class="question">
+				<h3>How many months out of the last 36 months have you been employed?</h3>
+			</div>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="col-2-question">
+			<div style="width:400px;">
+				<input id="employrateInput" type="number" min="0" max="36" style="width:400px; height: 40px;" placeholder="Enter your rate of employment">
+			</div>
+		</div>
+		</div>
+	  
+    </div>
+	</section>
 
 
   <section id="viz_screen">
-  This is viz_screen
+    <div id="sketch_holder">
+      <!-- Viz goes here -->
+    </div>
   </section>
-  
-  
+
+
   <section id="closing_screen">
-  This is closing_screen
+	<div class="row">
+		<div class="col-1-closing_screen">
+			<img src="https://images.squarespace-cdn.com/content/v1/5e3ad7fa73600c394b539f6b/1592295617628-XCN181MDMWR7YTKHZJML/KU_Logo_White.png?format=750w">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-2-closing_screen">
+			<p style="width: 100vh; text-align: center;">
+				Confronting Data Co-lab is a co-operation of scholars based at Department of Computer Science, University of Copenhagen working and acting together in support of the stakeholders we encounter and engage with in our research.
+				<br>
+				<br>
+				<a href="https://www.confrontingdata.dk/" target="_blank">Visit Confronting Data Co-lab.</a>
+			</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-3-closing_screen">
+			<p style="font-size:1vw; width: 100vh; text-align: center;">
+				Web application developed by Confronting Data Co-Lab in cooperation with Peter Maarbjerg Dønvang and Therese Moreau.
+			</p>
+		</div>
+	</div>
+
   </section>
 
 
 </body>
-</html>
 
-<!-- <a href="#viz_screen">To viz screen</a> -->
+</html>
