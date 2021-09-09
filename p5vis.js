@@ -260,7 +260,8 @@ function draw()
     
         drawGrid();
         
-        boxWidth = currentWindowWidth / 5;
+        boxWidth = 220 + 6 * ((currentWindowWidth - 320) / 680)
+        
     
     
         // for every line
@@ -720,7 +721,7 @@ class Box
         fill(black);
         // TODO can this be according to screenwidth?
         textAlign(CENTER, CENTER);
-        textSize(14 + 6 * ((currentWindowWidth - 320) / 680));
+        textSize(12 + 6 * ((currentWindowWidth - 320) / 680));
         text(this.text, this.xpos, this.ypos);
     }
 }
