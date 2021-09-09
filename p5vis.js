@@ -952,8 +952,10 @@ function scrollDown() {
         document.getElementById("q13").scrollIntoView();
     }
     else if (isInViewport(document.getElementById("q13"))) {
-        document.getElementById("viz_screen").scrollIntoView();
-        showViz();
+        if (document.getElementById("employrateInput").value > 0 && document.getElementById("employrateInput").value < 36) {
+            document.getElementById("viz_screen").scrollIntoView();
+            showViz();
+        }
     }
     else if (isInViewport(document.getElementById("viz_screen"))) {
         document.getElementById("closing_screen").scrollIntoView();
