@@ -639,10 +639,10 @@ function showViz() {
     }
 
     ageBox.setAnswer(document.getElementById("ageInput").value);
-    if (ageBox.answer < 50) {
+    if (ageBox.answer < 56) {
         ageBox.setValue("further");
     }
-    else if (ageBox.answer >= 50) {
+    else if (ageBox.answer >= 56) {
         ageBox.setValue("atRisk");
     }
 
