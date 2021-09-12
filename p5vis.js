@@ -5,6 +5,7 @@ let sameAsSelected, selects, previousSibling, noOfSelects, noOfSameAsSelected;
 let currentWindowWidth;
 let currentWindowHeight;
 let boxWidth;
+let ageIsGood, employRateIsGood;
 
 function main() {
     /* Look for any elements with the class "custom-select": */
@@ -63,16 +64,16 @@ function main() {
                 previousSibling.click();
             });
             optionList.appendChild(optionItem);
-      }
-      customSelects[i].appendChild(optionList);
-      selectedItem.addEventListener("click", function(e) {
-        /* When the select box is clicked, close any other select boxes,
-        and open/close the current select box: */
-        e.stopPropagation();
-        closeAllSelect(this);
-        this.nextSibling.classList.toggle("select-hide");
-        this.classList.toggle("select-arrow-active");
-      });
+        }
+        customSelects[i].appendChild(optionList);
+        selectedItem.addEventListener("click", function(e) {
+            /* When the select box is clicked, close any other select boxes,
+            and open/close the current select box: */
+            e.stopPropagation();
+            closeAllSelect(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+        });
     }
     
     function closeAllSelect(elmnt) {
@@ -182,19 +183,22 @@ let centerX, centerY;
 
 
 function setup() {
-        canvas = createCanvas(windowWidth, windowHeight);
+        // canvas = createCanvas(windowWidth, windowHeight);
+        canvas = createCanvas(document.body.clientWidth, window.innerHeight);
         canvas.parent('sketch_holder');
         background(black);
         
-        currentWindowWidth = windowWidth;
-        currentWindowHeight = windowHeight;
+        // currentWindowWidth = windowWidth;
+        // currentWindowHeight = windowHeight;
+        currentWindowWidth = document.body.clientWidth;
+        currentWindowHeight = window.innerHeight;
         
         rectMode(CENTER, CENTER);
         textAlign(CENTER, CENTER);
         
         theFont = loadFont("fonts/AdobeGaramondProRegular.ttf")
         textFont(theFont);
-        textSize(14 + 6 * ((currentWindowWidth - 320) / 680));
+        textSize(10 + 6 * ((currentWindowWidth - 320) / 680));
         
         yGrid = currentWindowHeight / 6;
         row1Y = yGrid;
@@ -687,7 +691,7 @@ class Box
 
     displayAnswer() {
         noStroke();
-        textSize(12 + 6 * ((currentWindowWidth - 320) / 680));
+        textSize(10 + 6 * ((currentWindowWidth - 320) / 680));
         fill(255, 255, 255, this.ansCurrentAlpha);
         textAlign(LEFT, BOTTOM);
         if (this == ageBox) {
@@ -723,46 +727,6 @@ class Box
         textAlign(CENTER, CENTER);
         textSize(12 + 6 * ((currentWindowWidth - 320) / 680));
         text(this.text, this.xpos, this.ypos);
-    }
-}
-
-// function debug() {
-//     for (box of boxes) {
-//         if (box.answer != null) {
-//             fill(white);
-//             text(box.answer, box.xpos + box.xsize / 2, box.ypos);
-//         }
-//     }
-//     // for (var i = 0 ; i < lines.length ; i++) {
-//     //     if (lines[i].hasArrived) {
-//     //         lines[i].color = (255, 0, 0);
-//     //     }
-//     // }
-// }
-
-class AnswerBox {
-    constructor(parentBox, answer, xpos, ypos) {
-        this.parentBox = parentBox;
-        this.answer = answer;
-        this.xpos = xpos;
-        this.ypos = ypos;
-        this.startAlpha = 0;
-        this.endAlpha = 255;
-        this.currentAlpha = 0;
-
-        this.trigger = get(this.xpos - 30, this.ypos);
-    }
-
-
-    update() {
-        if (this.currentAlpha < 255) {
-            this.currentAlpha += 5;
-        }
-    }
-
-    display() {
-        fill(255, 0, 0);
-        text(this.answer, this.xpos, this.ypos);
     }
 }
 
@@ -957,22 +921,27 @@ function scrollDown() {
     }
     else if (isInViewport(document.getElementById("q11"))) {
         document.getElementById("q12").scrollIntoView();
+        document.getElementById("ageInput").focus();
     }
     else if (isInViewport(document.getElementById("q12"))) {
-        if (document.getElementById("ageInput").value > 120 || document.getElementById("ageInput").value < 0) {
+        checkAge();
+        if (!ageIsGood) {
+            console.log("age is not good");
             document.getElementById("ageWarning").style.color= "white";
         }
         else {
+            console.log("age is good");
             document.getElementById("q13").scrollIntoView();
         }
     }
     else if (isInViewport(document.getElementById("q13"))) {
-        if (document.getElementById("employrateInput").value < 0 || document.getElementById("employrateInput").value > 36) {
+        checkEmployRate();
+        if (!employRateIsGood) {
             document.getElementById("rateWarning").style.color= "white";
         }
         else {
             document.getElementById("viz_screen").scrollIntoView();
-            // showViz();
+            showViz();
         }
     }
     else if (isInViewport(document.getElementById("viz_screen"))) {
@@ -980,31 +949,58 @@ function scrollDown() {
     }
 }
 
+function checkAge() {
+    var enteredAge = document.getElementById("ageInput").value;
+    if (enteredAge > 0 && enteredAge <= 125) {
+        ageIsGood = true;
+    }
+    else {
+        ageIsGood = false;
+    }
+}
+// function debug() {
+//     if (isInViewport(document.getElementById("q12"))) {
+//         checkAge();
+        
+//         console.log("this is debug");
+//     }
+// }
+function checkEmployRate() {
+    var enteredRate = document.getElementById("employrateInput").value;
+    if (enteredRate >= 0 && enteredRate <= 36) {
+        employRateIsGood = true;
+    }
+    else {
+        employRateIsGood = false;
+    }
+}
+
+
 function setDefaultColor() {
     document.getElementById("ageWarning").style.color = "black";
     document.getElementById("rateWarning").style.color = "black";
 }
 
 
-function getSelectedText(elementId) {
-    var element = document.getElementById(elementId);
+// function getSelectedText(elementId) {
+//     var element = document.getElementById(elementId);
 
-    if (element.selectedIndex == -1) {
-        return null;
-    }
-    else {
-        return element.options[element.selectedIndex].text;
-    }
-}
+//     if (element.selectedIndex == -1) {
+//         return null;
+//     }
+//     else {
+//         return element.options[element.selectedIndex].text;
+//     }
+// }
 
 
 function windowResized() {
-    console.log("window was resized");
+    console.log("window was resized to: " + document.body.clientWidth + " x " + document.body.clientHeight);
     calcPath();
     resizeCanvas(windowWidth, windowHeight);
  }
 
 document.addEventListener("DOMContentLoaded", function(event) { 
     main();
-  });
+});
 

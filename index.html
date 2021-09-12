@@ -15,7 +15,7 @@
 </head>
 
 
-<body>
+<body onscroll = "showViz()">
 
   <div id="scrollButtonContainer">
     <div onclick="scrollUp()" class="scrollButton" id="scrollUp">˄</div>
@@ -35,14 +35,14 @@
         <h1>Vizualizing the STAR unemployment algorithm</h1>
         <!-- lorem ipsum -->
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra scelerisque tortor, sit amet
-          interdum quam euismod sit amet. Aliquam in eleifend quam, vitae vehicula urna. Cras lectus tellus, tempor ac
-          pulvinar eget, sodales at enim. Etiam semper eu enim sed aliquam. Praesent et eros et ex ultrices ullamcorper.
-          Phasellus orci sapien, efficitur egestas ligula sit amet, commodo interdum magna.
-          <br>
-          <br>
-          NB! This webapp does not use cookies, your data will not be passed on to third parties nor will we save and
-          store your data.
+			This site enables you to interact with a demo of <i>The STAR Algorithm</i> 
+			(from the abbreviation of The Danish Agency for Labour Market and Recruitment, hereafter <i>STAR</i>).<br>
+			The STAR Algorithm constitutes the core of a profiling tool, which is implemented in job centers in Denmark nationwide. 
+			This profiling tool was initially presented as a tool to support the unemployed in their preparation for the 
+			job-seeking process and as a starting point for the dialogue between the unemployed individual and their caseworker at 
+			the local job center.<br>
+			In practice, the profiling tool uses an implemented algorithm to create “data profiles” of unemployed citizens based on personal data. The stated purpose of the tool – and the underlying algorithm – is to predict whether an unemployed citizen is at risk of long-term unemployment.
+			You can explore how the STAR algorithm makes predictions by entering different values below.
         </p>
     </div>
     </div>
@@ -67,7 +67,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div id="answer1" class="custom-select" style="width:375px;">
+			<div id="answer1" class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option value="useless">Primary education</option>
@@ -103,7 +103,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div id="answer1a" class="custom-select" style="width:375px;">
+			<div id="answer1a" class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>Humanities, religion or aesthetics</option>
@@ -141,7 +141,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:375px;">
+			<div class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option value="0">Enter answer</option>
 				<option value="lowRisk">I have a new job, but I haven't started yet</option>
@@ -176,7 +176,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:375px;">
+			<div class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I was terminated</option>
@@ -210,7 +210,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:375px;">
+			<div class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I have known it for less than a week</option>
@@ -242,7 +242,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:375px;">
+			<div class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I have not applied for any jobs</option>
@@ -273,7 +273,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:375px;">
+			<div class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>My job opportunities are good</option>
@@ -305,7 +305,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div  class="custom-select" style="width:375px;">
+			<div  class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I know exactly what kind of job I want</option>
@@ -396,7 +396,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:375px;">
+			<div class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>Yes</option>
@@ -484,7 +484,7 @@
 
 		<div class="row">
 		<div class="col-2-question">	
-			<div class="custom-select" style="width:375px;">
+			<div class="custom-select" style="width:350px;">
 				<select id="og-select">
 				<option value="0">Enter answer</option>
 				<option value="further">Danish</option>
@@ -518,7 +518,7 @@
 		<div class="row">
 		<div class="col-2-question">
 			<div style="display:flex;">
-				<input onclick="calcPath(), showViz(), setDefaultColor()"  id="ageInput" type="number" style="width:375px; height: 40px;" min="1" max="120" placeholder="Enter your age">
+				<input onclick="calcPath(), showViz(), setDefaultColor()"  id="ageInput" type="number" style="width:350px; height: 40px;" min="1" max="120" placeholder="Enter your age">
 				<p class="warningMessage" id="ageWarning" style="color: black;">Please enter a valid input</p>
 			</div>
 		</div>
@@ -544,7 +544,7 @@
 		<div class="row">
 		<div class="col-2-question">
 			<div style="display: flex;">
-				<input onclick="calcPath(),   showViz(), setDefaultColor()" id="employrateInput" type="number" min="0" max="36" style="width:375px; height: 40px;" placeholder="Enter your rate of employment">
+				<input onclick="calcPath(),   showViz(), setDefaultColor()" id="employrateInput" type="number" min="0" max="36" style="width:350px; height: 40px;" placeholder="Enter your rate of employment">
 				<p class="warningMessage" id="rateWarning" style="color: black;">Please enter a valid input</p>
 			</div>
 		</div>
@@ -564,13 +564,13 @@
   <section id="closing_screen">
 	<div class="row">
 		<div class="col-1-closing_screen">
-			<img src="https://images.squarespace-cdn.com/content/v1/5e3ad7fa73600c394b539f6b/1592295617628-XCN181MDMWR7YTKHZJML/KU_Logo_White.png?format=750w">
+			<img src="https://images.squarespace-cdn.com/content/v1/5e3ad7fa73600c394b539f6b/1592295617628-XCN181MDMWR7YTKHZJML/KU_Logo_White.png?format=750w" alt="Copenhagen University Logo">
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-2-closing_screen">
-			<p style="width: 100vh; text-align: center;">
+			<p style="width: 100vh;">
 				Confronting Data Co-lab is a co-operation of scholars based at Department of Computer Science, University of Copenhagen working and acting together in support of the stakeholders we encounter and engage with in our research.
 				<br>
 				<br>
@@ -581,7 +581,7 @@
 
 	<div class="row">
 		<div class="col-3-closing_screen">
-			<p style="font-size:1vw; width: 100vh; text-align: center;">
+			<p style="font-size:1vw; width:">
 				Web application developed by Confronting Data Co-Lab in cooperation with Peter Maarbjerg Dønvang and Therese Moreau.
 			</p>
 		</div>
