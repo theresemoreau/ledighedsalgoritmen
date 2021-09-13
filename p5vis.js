@@ -264,7 +264,7 @@ function draw()
     
         drawGrid();
         
-        boxWidth = 220 + 6 * ((currentWindowWidth - 320) / 680)
+        boxWidth = 300 + 6 * ((currentWindowWidth - 320) / 680)
         
     
     
@@ -505,6 +505,7 @@ function calcPath() {
                 employRateBox.isActive = true;
                 
                 if (employRateBox.value == "atRisk") {
+                    console.log("employratebox: at risk");
                     lines.push(
                         // cross -> over yes5Box
                         new Line(
@@ -517,6 +518,7 @@ function calcPath() {
                             nope5Box.xpos, nope5Box.ypos
                         )
                     )
+
                     nope5Box.isActive = true;
                 }
                 else if (employRateBox.value == "lowRisk") {
@@ -651,11 +653,13 @@ function showViz() {
     }
 
     employRateBox.setAnswer(document.getElementById("employrateInput").value);
-    if (employRateBox.answer < 3) {
-        employRateBox.setValue("atRisk");
-    }
-    else if (employRateBox.answer >= 3) {
-        employRateBox.setValue("lowRisk");
+    if (employRateBox.value != null) {
+        if (employRateBox.answer < 3) {
+            employRateBox.setValue("atRisk");
+        }
+        else if (employRateBox.answer >= 3) {
+            employRateBox.setValue("lowRisk");
+        }
     }
 
     calcPath();
@@ -691,17 +695,17 @@ class Box
 
     displayAnswer() {
         noStroke();
-        textSize(10 + 6 * ((currentWindowWidth - 320) / 680));
+        textSize(6 + 6 * ((currentWindowWidth - 320) / 680));
         fill(255, 255, 255, this.ansCurrentAlpha);
         textAlign(LEFT, BOTTOM);
         if (this == ageBox) {
-            text(this.answer + " years old", this.xpos + 10, this.ypos + vertSpacing / 2 - 10);
+            text("You entered: " + this.answer + " years old", this.xpos + 10, this.ypos + vertSpacing / 2 - 8);
         }
         else if (this == employRateBox) {
-            text(this.answer + " / 36 months", this.xpos + 10, this.ypos + vertSpacing / 2 - 10);
+            text("You entered: " + this.answer + " / 36 months", this.xpos + 10, this.ypos + vertSpacing / 2 - 8);
         }
         else {
-            text(this.answer, this.xpos + 10, this.ypos + vertSpacing / 2 - 10);
+            text("You entered: " + this.answer, this.xpos + 10, this.ypos + vertSpacing / 2 - 8);
         }
     }
 
@@ -725,7 +729,7 @@ class Box
         fill(black);
         // TODO can this be according to screenwidth?
         textAlign(CENTER, CENTER);
-        textSize(12 + 6 * ((currentWindowWidth - 320) / 680));
+        textSize(10 + 6 * ((currentWindowWidth - 320) / 680));
         text(this.text, this.xpos, this.ypos);
     }
 }
@@ -803,10 +807,11 @@ var isInViewport = function (elem) {
 };
 
 function scrollUp() {
-    console.log("scroll up");
-
+    
+    
     if (isInViewport(document.getElementById("opening_screen"))) {
         // do nothing
+        console.log("cannot scroll up from opening screen");
     }
     else if (isInViewport(document.getElementById("q1"))) {
         document.getElementById("opening_screen").scrollIntoView();
@@ -870,8 +875,6 @@ function scrollUp() {
 }
     
 function scrollDown() {
-    console.log("Button was pushed, scroll down");
-    
     if (isInViewport(document.getElementById("opening_screen"))) {
         document.getElementById("q1").scrollIntoView();
     }
@@ -917,11 +920,12 @@ function scrollDown() {
         document.getElementById("info").scrollIntoView();
     }
     else if (isInViewport(document.getElementById("info"))) {
-        document.getElementById("q11").scrollIntoView();
-    }
+    document.getElementById("q11").scrollIntoView();
+}
     else if (isInViewport(document.getElementById("q11"))) {
+        console.log("scrolling from origin to age");
         document.getElementById("q12").scrollIntoView();
-        document.getElementById("ageInput").focus();
+        // document.getElementById("ageInput").focus();
     }
     else if (isInViewport(document.getElementById("q12"))) {
         checkAge();
@@ -932,6 +936,7 @@ function scrollDown() {
         else {
             console.log("age is good");
             document.getElementById("q13").scrollIntoView();
+            console.log("scrolling from age to employmentrate");
         }
     }
     else if (isInViewport(document.getElementById("q13"))) {
@@ -958,13 +963,8 @@ function checkAge() {
         ageIsGood = false;
     }
 }
-// function debug() {
-//     if (isInViewport(document.getElementById("q12"))) {
-//         checkAge();
-        
-//         console.log("this is debug");
-//     }
-// }
+
+
 function checkEmployRate() {
     var enteredRate = document.getElementById("employrateInput").value;
     if (enteredRate >= 0 && enteredRate <= 36) {
@@ -997,7 +997,7 @@ function setDefaultColor() {
 function windowResized() {
     console.log("window was resized to: " + document.body.clientWidth + " x " + document.body.clientHeight);
     calcPath();
-    resizeCanvas(windowWidth, windowHeight);
+    resizeCanvas(document.body.clientWidth, document.body.clientHeight);
  }
 
 document.addEventListener("DOMContentLoaded", function(event) { 

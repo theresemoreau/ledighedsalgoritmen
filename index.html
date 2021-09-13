@@ -11,11 +11,11 @@
 
   <script src="p5vis.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-  <!-- ! -->
+  <!-- Donhaps -->
 </head>
 
 
-<body onscroll = "showViz()">
+<body onscroll=" calcPath(), showViz()">
 
   <div id="scrollButtonContainer">
     <div onclick="scrollUp()" class="scrollButton" id="scrollUp">˄</div>
@@ -33,15 +33,21 @@
     <div class="row">
 	<div class="col-2">
         <h1>Vizualizing the STAR unemployment algorithm</h1>
+        <!-- lorem ipsum -->
         <p>
-			This site enables you to interact with a demo of <i>The STAR Algorithm</i> 
-			(from the abbreviation of The Danish Agency for Labour Market and Recruitment, hereafter <i>STAR</i>).<br>
-			The STAR Algorithm constitutes the core of a profiling tool, which is implemented in job centers in Denmark nationwide. 
-			This profiling tool was initially presented as a tool to support the unemployed in their preparation for the 
-			job-seeking process and as a starting point for the dialogue between the unemployed individual and their caseworker at 
-			the local job center.<br>
-			In practice, the profiling tool uses an implemented algorithm to create “data profiles” of unemployed citizens based on personal data. The stated purpose of the tool – and the underlying algorithm – is to predict whether an unemployed citizen is at risk of long-term unemployment.
+			This site enables you to interact with a ‘demo’ of  “the STAR algorithm” (from the abbreviation of the Danish Agency for Labour Market and Recruitment – in Danish: Styrelsen for Arbejdsmarked og Rekruttering, hereafter ‘STAR’).
+			<br>
+			<br>
+			The STAR algorithm constitutes the core of a profiling tool, which is implemented in job centers in Denmark nationwide. This profiling tool was initially presented as a tool to support the unemployed in their preparation for the job-seeking process and as a ‘starting point’ for the dialogue between the unemployed individual and their caseworker at the local job center.
+			<br>
+			In practice, the profiling tool uses an implemented algorithm to create “data profiles” of unemployed citizens based on personal data. The stated purpose of the tool – and the underlying STAR algorithm –is to predict whether an unemployed citizen is at risk of long-term unemployment.
+			<br>
+			<br>			
 			You can explore how the STAR algorithm makes predictions by entering different values below.
+			<br>
+			<br>
+			NB! This webapp does not use cookies, your data will not be passed on to third parties nor will we save and
+			store your data.
         </p>
     </div>
     </div>
@@ -517,7 +523,7 @@
 		<div class="row">
 		<div class="col-2-question">
 			<div style="display:flex;">
-				<input onclick="calcPath(), showViz(), setDefaultColor()"  id="ageInput" type="number" style="width:350px; height: 40px;" min="1" max="120" placeholder="Enter your age">
+				<input onclick="setDefaultColor()"  id="ageInput" type="number" style="width:350px; height: 40px;" min="1" max="120" placeholder="Enter your age">
 				<p class="warningMessage" id="ageWarning" style="color: black;">Please enter a valid input</p>
 			</div>
 		</div>
