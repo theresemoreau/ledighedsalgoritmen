@@ -6,6 +6,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="cache-control" content="no-cache" />
 
   <link rel="stylesheet" href="styles.css" type="text/css">
 
@@ -15,7 +16,7 @@
 </head>
 
 
-<body onscroll=" calcPath(), showViz()">
+<body onscroll="setValues(), displayViz(), ifOnAge()">
 
   <div id="scrollButtonContainer">
     <div onclick="scrollUp()" class="scrollButton" id="scrollUp">˄</div>
@@ -31,9 +32,8 @@
     </div>
 
     <div class="row">
-	<div class="col-2">
+	<div class="col-2" id="explainerText">
         <h1>Vizualizing the STAR unemployment algorithm</h1>
-        <!-- lorem ipsum -->
         <p>
 			This site enables you to interact with a demo of <i>The STAR algorithm</i> (from the Danish abbreviation of 
 			<i>the Danish Agency for Labour Market and Recruitment</i>, hereafter <i>STAR</i>).<br>
@@ -48,11 +48,12 @@
         </p>
     </div>
     </div>
-
+	<!-- TODO I think this is useless -->
+<!-- 
 	<div class="row">
 		<div class="col-3"></div>
 	</div>
-	
+	 -->
 	</section>
 
 	<!-- QUESTION 1 -->
@@ -69,7 +70,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div id="answer1" class="custom-select" style="width:350px;">
+			<div id="answer1" class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option value="useless">Primary education</option>
@@ -105,7 +106,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div id="answer1a" class="custom-select" style="width:350px;">
+			<div id="answer1a" class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>Humanities, religion or aesthetics</option>
@@ -143,7 +144,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:350px;">
+			<div class="custom-select">
 				<select id="og-select">
 				<option value="0">Enter answer</option>
 				<option value="lowRisk">I have a new job, but I haven't started yet</option>
@@ -178,7 +179,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:350px;">
+			<div class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I was terminated</option>
@@ -212,7 +213,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:350px;">
+			<div class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I have known it for less than a week</option>
@@ -244,7 +245,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:350px;">
+			<div class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I have not applied for any jobs</option>
@@ -275,7 +276,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:350px;">
+			<div class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>My job opportunities are good</option>
@@ -307,13 +308,13 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div  class="custom-select" style="width:350px;">
+			<div  class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>I know exactly what kind of job I want</option>
 				<option>I have an idea of what types of job I would like to have</option>
 				<option>I have a few vague ideas about what kinds of job I would like to have</option>
-				<option>I do not know whawt kind of job I would like to have</option>
+				<option>I do not know what kind of job I would like to have</option>
 				</select>
 			</div>
 		</div>
@@ -338,9 +339,9 @@
 			
 		<div class="row">
 		<div class="col-2-question">
-			<div class="checkBoxes" style="width:800px;">
+			<div class="checkBoxes">
 				<input type="checkbox" id="myCheck"> Responding to advertisements in newspapers, magazines, the internet, etc. <br>
-				<input type="checkbox" id="myCheck"> Sending uncolicited job applications <br>
+				<input type="checkbox" id="myCheck"> Sending unsolicited job applications <br>
 				<input type="checkbox" id="myCheck"> Contacting employers personally or by phone <br>
 				<input type="checkbox" id="myCheck"> Using social media (Facebook, LinkedIn, etc.) <br>
 				<input type="checkbox" id="myCheck"> Using my network (contacting friends, family, former study or work colleagues, etc.) <br>
@@ -368,7 +369,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="checkBoxes" style="width:800px;">
+			<div class="checkBoxes">
 				<input type="checkbox" id="myCheck"> I am considering changing industry <br>
 				<input type="checkbox" id="myCheck"> I am considering commuting long distances <br>
 				<input type="checkbox" id="myCheck"> I am considering moving <br>
@@ -398,7 +399,7 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="custom-select" style="width:350px;">
+			<div class="custom-select">
 				<select id="og-select">
 				<option>Enter answer</option>
 				<option>Yes</option>
@@ -428,16 +429,17 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div class="checkBoxes" id="answer8" style="width:800px;">
-				<input type="checkbox" id="myCheck"> My physical health <br>
-				<input type="checkbox" id="myCheck"> My mental health <br>
-				<input type="checkbox" id="myCheck"> Personal or social conditions <br>
-				<input type="checkbox" id="myCheck"> Financial conditions <br>
-				<input type="checkbox" id="myCheck"> Alcohol addication or drug abuse <br>
-				<input type="checkbox" id="myCheck"> Lack of reading, spelling or math skills <br>
-				<input type="checkbox" id="myCheck"> Lack of IT skills <br>
-				<input type="checkbox" id="myCheck"> Language Barriers <br>
-				<input type="checkbox" id="myCheck"> Other, please specify <br>
+			<div class="checkBoxes" id="answer8">
+				<input type="checkbox"> My physical health <br>
+				<input type="checkbox"> My mental health <br>
+				<input type="checkbox"> Personal or social conditions <br>
+				<input type="checkbox"> Financial conditions <br>
+				<input type="checkbox"> Alcohol addication or drug abuse <br>
+				<input type="checkbox"> Lack of reading, spelling or math skills <br>
+				<input type="checkbox"> Lack of IT skills <br>
+				<input type="checkbox"> Language Barriers <br>
+				<input type="checkbox" id="otherDifficulty" onclick="displaySpecify()"> Other, please specify <br>
+				<input type="text" id="specifyDifficulty" style="visibility:hidden; font-family: AdobeGaramondPro; width: 50vw;" placeholder="specify here"><br>
 			</div>
 		</div>
 		</div>
@@ -486,7 +488,7 @@
 
 		<div class="row">
 		<div class="col-2-question">	
-			<div class="custom-select" style="width:350px;">
+			<div class="custom-select">
 				<select id="og-select">
 				<option value="0">Enter answer</option>
 				<option value="further">Danish</option>
@@ -519,9 +521,9 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div style="display:flex;">
-				<input onclick="setDefaultColor()"  id="ageInput" type="number" style="width:350px; height: 40px;" min="1" max="120" placeholder="Enter your age">
-				<p class="warningMessage" id="ageWarning" style="color: black;">Please enter a valid input</p>
+			<div>
+				<input onclick="setDefaultColor()"  id="ageInput" type="number" style="width:30vw; height: 40px;" min="1" max="120" placeholder="Enter your age">
+				<p class="warningMessage" id="ageWarning">Please enter a valid input</p>
 			</div>
 		</div>
 		</div>
@@ -545,9 +547,12 @@
 
 		<div class="row">
 		<div class="col-2-question">
-			<div style="display: flex;">
-				<input onclick="calcPath(),   showViz(), setDefaultColor()" id="employrateInput" type="number" min="0" max="36" style="width:350px; height: 40px;" placeholder="Enter your rate of employment">
-				<p class="warningMessage" id="rateWarning" style="color: black;">Please enter a valid input</p>
+			<div>
+				<input onclick="displayViz(), setDefaultColor()" id="employrateInput" type="number" min="0" max="36" style="width:30vw; height: 40px;" placeholder="Enter your rate of employment">
+				
+				<p class="warningMessage" id="rateWarning">
+					Please enter a valid input
+				</p>
 			</div>
 		</div>
 		</div>
@@ -569,7 +574,7 @@
 			<img src="https://images.squarespace-cdn.com/content/v1/5e3ad7fa73600c394b539f6b/1592295617628-XCN181MDMWR7YTKHZJML/KU_Logo_White.png?format=750w" alt="Copenhagen University Logo">
 		</div>
 	</div>
-
+	
 	<div class="row">
 		<div class="col-2-closing_screen">
 			<p style="width: 100vh;">
@@ -579,11 +584,12 @@
 				<a href="https://www.confrontingdata.dk/" target="_blank">Visit Confronting Data Co-lab.</a>
 			</p>
 		</div>
+		<label id="resetButton" onclick="resetAll()">Take the test again</label>
 	</div>
 
 	<div class="row">
 		<div class="col-3-closing_screen">
-			<p style="font-size:1vw; width:">
+			<p style="font-size:2vw; width: 100vw">
 				Web application developed by Confronting Data Co-Lab in cooperation with Peter Maarbjerg Dønvang and Therese Moreau.
 			</p>
 		</div>

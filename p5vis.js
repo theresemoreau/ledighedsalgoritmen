@@ -34,7 +34,6 @@ function main() {
             optionValue = optionItem.setAttribute("value", j);
             // get the option from the original select and make a div with that
             optionItem.innerHTML = stockSelects.options[j].innerHTML;
-            // console.log(this.value);
             optionItem.addEventListener("click", function(e) {
                 /* When an item is clicked, update the original select box,
                 and the selected item: */
@@ -49,7 +48,7 @@ function main() {
                         previousSibling.innerHTML = this.innerHTML;
 
                         // TODO this is how we get the answer.
-                        console.log("answer" + i + ": " + this.innerHTML);
+                        // console.log("answer" + i + ": " + this.innerHTML);
                         // it does not have a value. only a div
                         sameAsSelected = this.parentNode.getElementsByClassName("same-as-selected");
                         noOfSameAsSelected = sameAsSelected.length;
@@ -103,7 +102,7 @@ function main() {
     document.addEventListener("click", closeAllSelect);
     
     if (document.getElementById("answer8").innerHTML == "Yes") {
-        console.log("this should show the thing");
+        // TODO this should show the thing
     }
 
     currentWindowWidth = window.innerWidth;
@@ -162,7 +161,7 @@ let row1Y, row2Y, row3Y, row4Y, row5Y;
 let vertSpacing;
 
 
-let lineHeight = 30;
+let lineHeight;
 
 
 let boxRounding = 40;
@@ -229,16 +228,7 @@ function setup() {
         nope5Box = new Box("High risk of\nlong term unemployment");    
         console.log("sketch setup done");
 
-        expectationBox.display(centerX, row1Y, boxWidth, 2*lineHeight);
-        originBox.display(centerX, row2Y, boxWidth, lineHeight);
-        ageBox.display(centerX, row3Y, boxWidth, lineHeight);
-        employRateBox.display(centerX, row4Y, boxWidth, lineHeight);
-        nope2Box.display(centerX + width / 4, row2Y, boxWidth, lineHeight*2);
-        yes2Box.display(centerX - width / 4, row2Y, boxWidth, lineHeight*2);
-        nope3Box.display(centerX - width / 4, row3Y, boxWidth, lineHeight*2); 
-        nope4Box.display(centerX + width / 4, row4Y, boxWidth, lineHeight*2);
-        yes5Box.display(centerX - width / 5, row5Y, boxWidth, lineHeight*2);
-        nope5Box.display(centerX + width / 5, row5Y, boxWidth, lineHeight*2);
+        displayBoxes();
 }
 
 function draw() 
@@ -263,9 +253,11 @@ function draw()
         // text("The STAR algorithm", centerX, 100);
     
         drawGrid();
+
+        lineHeight = currentWindowHeight / 25;
         
-        boxWidth = 300 + 6 * ((currentWindowWidth - 320) / 680)
-        
+        // boxWidth = 100 + 6 * ((currentWindowWidth - 320) / 680)
+        boxWidth = currentWindowWidth / 6;
     
     
         // for every line
@@ -360,17 +352,7 @@ function draw()
         }
     }
 
-        // // display boxes
-        expectationBox.display(centerX, row1Y, boxWidth, 2*lineHeight);
-        originBox.display(centerX, row2Y, boxWidth, lineHeight);
-        ageBox.display(centerX, row3Y, boxWidth, lineHeight);
-        employRateBox.display(centerX, row4Y, boxWidth, lineHeight);
-        nope2Box.display(centerX + width / 4, row2Y, boxWidth, lineHeight*2);
-        yes2Box.display(centerX - width / 4, row2Y, boxWidth, lineHeight*2);
-        nope3Box.display(centerX - width / 4, row3Y, boxWidth, lineHeight*2); 
-        nope4Box.display(centerX + width / 4, row4Y, boxWidth, lineHeight*2);
-        yes5Box.display(centerX - width / 5, row5Y, boxWidth, lineHeight*2);
-        nope5Box.display(centerX + width / 5, row5Y, boxWidth, lineHeight*2);
+    displayBoxes();
      
 }
 
@@ -382,7 +364,7 @@ if ('scrollRestoration' in history) {
 window.scrollTo(0,0);
 
 
-
+// ************************ P5 ****************************
 function calcPath() {
     // always start with resetting
     lines.length = 0;
@@ -532,6 +514,7 @@ function calcPath() {
                             yes5Box.xpos, yes5Box.ypos
                         )
                     )
+                    nope5Box.isActive = false;
                     yes5Box.isActive = true;
                 }
             }
@@ -541,135 +524,6 @@ function calcPath() {
     }
 }
 
-function Line(startX, startY, endX, endY) {
-    this.startX = startX;
-    this.startY = startY;
-    this.currentX = startX;
-    this.currentY = startY;
-    this.endX = endX;
-    this.endY = endY;
-    this.speed = 5;
-    this.hasArrived = false;
-    this.dir = "undecided";
-    
-    //  calculate length of line
-    if (endX == startX) {
-        this.dir = "vertical";
-        this.length = abs(this.endY - this.startY);
-    }
-    else if (endY == startY) {
-        this.length = abs(this.endX - this.startX);
-
-        if (this.endX < this.startX) {
-            this.dir = "left";
-        }
-        else if (this.endX > this.startX) {
-            this.dir = "right";
-        }
-    }
-    this.update = function() {
-        // TODO adjust at the end to not overshoot
-        if (this.dir == "vertical") {
-            if (this.currentY < this.endY) {
-                this.currentY += this.speed;
-            }
-            else {
-                this.hasArrived = true;
-                this.currentY = this.endY;
-            }
-        }
-        if (this.dir == "left") {
-            if (this.currentX > this.endX) {
-                this.currentX -= this.speed;
-            }
-            else {
-                this.hasArrived = true;
-                this.currentX = this.endX;
-            }
-        }
-        else if (this.dir == "right") {
-            if (this.currentX < this.endX) {
-                this.currentX += this.speed;
-            }
-            else {
-                this.hasArrived = true;
-                this.currentX = this.endX;
-            }
-        }
-    }
-
-    this.display = function() {
-        
-        stroke(white);
-        line(this.startX, this.startY, this.currentX, this.currentY);
-        // console.log("line is showing");
-    }
-}
-
-function showViz() {
-    
-    // set what the expectationBox needs
-    expectationBox.setAnswer(document.getElementById("answer2").innerHTML);
-    if (
-        expectationBox.answer == "I have a new job, but I haven't started yet" || 
-        expectationBox.answer == "Within 1 month" ||
-        expectationBox.answer == "Within 3 months") {
-            expectationBox.setValue("lowRisk");
-    }
-    else if (
-        expectationBox.answer == "It will be more than 6 months" ||
-        expectationBox.answer == "I expect to go on maternity leave soon" ||
-        expectationBox.answer == "I expect to retire soon") {
-            expectationBox.setValue("atRisk");
-    }
-    else if (
-        expectationBox.answer == "Within 6 months" || 
-        expectationBox.answer == "Don't know") {
-            expectationBox.setValue("further");
-    }
-
-
-    
-    originBox.setAnswer(document.getElementById("answer9").innerHTML);
-    if (
-        originBox.answer == "Western immigrant" ||
-        originBox.answer == "Western descendant" ||
-        originBox.answer == "Non-western descendant") {
-            originBox.setValue("atRisk");
-    }
-    else if (
-        originBox.answer == "Danish" ||
-        originBox.answer == "Non-western immigrant" ||
-        originBox.answer == "Origin unknown") {
-            originBox.setValue("further")
-    }
-
-    ageBox.setAnswer(document.getElementById("ageInput").value);
-    if (ageBox.answer < 56) {
-        ageBox.setValue("further");
-    }
-    else if (ageBox.answer >= 56) {
-        ageBox.setValue("atRisk");
-    }
-
-    employRateBox.setAnswer(document.getElementById("employrateInput").value);
-    if (employRateBox.value != null) {
-        if (employRateBox.answer < 3) {
-            employRateBox.setValue("atRisk");
-        }
-        else if (employRateBox.answer >= 3) {
-            employRateBox.setValue("lowRisk");
-        }
-    }
-
-    calcPath();
-    vizIsVisible = true;
-    console.log("showViz is done");
-}
-
-function scrollToSketch() {
-    document.getElementById("defaultCanvas0").scrollIntoView();
-}
 
 class Box 
 {
@@ -695,7 +549,14 @@ class Box
 
     displayAnswer() {
         noStroke();
-        textSize(6 + 6 * ((currentWindowWidth - 320) / 680));
+        
+        if (currentWindowWidth > 800) {
+            textSize(currentWindowWidth / 70);
+        }
+        else {
+            textSize(currentWindowWidth / 45);
+        }
+        
         fill(255, 255, 255, this.ansCurrentAlpha);
         textAlign(LEFT, BOTTOM);
         if (this == ageBox) {
@@ -729,7 +590,13 @@ class Box
         fill(black);
         // TODO can this be according to screenwidth?
         textAlign(CENTER, CENTER);
-        textSize(10 + 6 * ((currentWindowWidth - 320) / 680));
+        // textSize(10 + 6 * ((currentWindowWidth - 320) / 680));
+        if (currentWindowWidth > 800) {
+            textSize(currentWindowWidth / 60);
+        }
+        else {
+            textSize(currentWindowWidth / 40);
+        }
         text(this.text, this.xpos, this.ypos);
     }
 }
@@ -796,15 +663,203 @@ function drawGrid() {
 
 }
 
-var isInViewport = function (elem) {
-    var bounding = elem.getBoundingClientRect();
-    return (
-        bounding.top >= 0 &&
-        bounding.left >= 0 &&
-        // bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-};
+function displayBoxes() {
+    var extraSpace = 40;
+    expectationBox.display(centerX, row1Y, boxWidth + 100, 2*lineHeight);
+        originBox.display(centerX, row2Y, boxWidth-20, lineHeight);
+        ageBox.display(centerX, row3Y, boxWidth-20, lineHeight);
+        employRateBox.display(centerX, row4Y, boxWidth + 10, lineHeight);
+        nope2Box.display(centerX + width / 4, row2Y, boxWidth + extraSpace, lineHeight*2);
+        yes2Box.display(centerX - width / 4, row2Y, boxWidth + extraSpace, lineHeight*2);
+        nope3Box.display(centerX - width / 4, row3Y, boxWidth + extraSpace, lineHeight*2); 
+        nope4Box.display(centerX + width / 4, row4Y, boxWidth + extraSpace, lineHeight*2);
+        yes5Box.display(centerX - width / 5, row5Y, boxWidth + extraSpace, lineHeight*2);
+        nope5Box.display(centerX + width / 5, row5Y, boxWidth + extraSpace, lineHeight*2);
+}
+
+function Line(startX, startY, endX, endY) {
+    this.startX = startX;
+    this.startY = startY;
+    this.currentX = startX;
+    this.currentY = startY;
+    this.endX = endX;
+    this.endY = endY;
+    this.speed = 5;
+    this.hasArrived = false;
+    this.dir = "undecided";
+    
+    //  calculate length of line
+    if (endX == startX) {
+        this.dir = "vertical";
+        this.length = abs(this.endY - this.startY);
+    }
+    else if (endY == startY) {
+        this.length = abs(this.endX - this.startX);
+
+        if (this.endX < this.startX) {
+            this.dir = "left";
+        }
+        else if (this.endX > this.startX) {
+            this.dir = "right";
+        }
+    }
+    this.update = function() {
+        // TODO adjust at the end to not overshoot
+        if (this.dir == "vertical") {
+            if (this.currentY < this.endY) {
+                this.currentY += this.speed;
+            }
+            else {
+                this.hasArrived = true;
+                this.currentY = this.endY;
+            }
+        }
+        if (this.dir == "left") {
+            if (this.currentX > this.endX) {
+                this.currentX -= this.speed;
+            }
+            else {
+                this.hasArrived = true;
+                this.currentX = this.endX;
+            }
+        }
+        else if (this.dir == "right") {
+            if (this.currentX < this.endX) {
+                this.currentX += this.speed;
+            }
+            else {
+                this.hasArrived = true;
+                this.currentX = this.endX;
+            }
+        }
+    }
+
+    this.display = function() {
+        
+        stroke(white);
+        line(this.startX, this.startY, this.currentX, this.currentY);
+    }
+}
+
+// take all answers and set the values of the boxes
+function setValues() {
+    // set what the expectationBox needs
+    expectationBox.setAnswer(document.getElementById("answer2").innerHTML);
+    if (
+        expectationBox.answer == "I have a new job, but I haven't started yet" || 
+        expectationBox.answer == "Within 1 month" ||
+        expectationBox.answer == "Within 3 months") {
+            expectationBox.setValue("lowRisk");
+        }
+        else if (
+            expectationBox.answer == "It will be more than 6 months" ||
+            expectationBox.answer == "I expect to go on maternity leave soon" ||
+            expectationBox.answer == "I expect to retire soon") {
+                expectationBox.setValue("atRisk");
+            }
+            else if (
+                expectationBox.answer == "Within 6 months" || 
+                expectationBox.answer == "Don't know") {
+                    expectationBox.setValue("further");
+                }
+                
+                
+                
+    
+    originBox.setAnswer(document.getElementById("answer9").innerHTML);
+    if (
+        originBox.answer == "Western immigrant" ||
+        originBox.answer == "Western descendant" ||
+        originBox.answer == "Non-western descendant") {
+            originBox.setValue("atRisk");
+    }
+    else if (
+        originBox.answer == "Danish" ||
+        originBox.answer == "Non-western immigrant" ||
+        originBox.answer == "Origin unknown") {
+            originBox.setValue("further")
+    }
+
+    ageBox.setAnswer(document.getElementById("ageInput").value);
+    if (ageBox.answer < 56) {
+        ageBox.setValue("further");
+    }
+    else if (ageBox.answer >= 56) {
+        ageBox.setValue("atRisk");
+    }
+
+    employRateBox.setAnswer(document.getElementById("employrateInput").value);
+    if (employRateBox.answer != null) {
+        if (employRateBox.answer < 3) {
+            employRateBox.setValue("atRisk");
+        }
+        else if (employRateBox.answer >= 3) {
+            employRateBox.setValue("lowRisk");
+        }
+    }
+
+    var _boxes = [
+        expectationBox,
+        originBox,
+        ageBox,
+        employRateBox
+    ];
+
+    for (var _box of _boxes) {
+        console.log(_box + ": " + _box.value);
+    }
+
+    
+}
+
+function displayViz() {
+    calcPath();
+    vizIsVisible = true;
+}
+
+
+// ************** INPUT **************
+function checkAge() {
+    var enteredAge = document.getElementById("ageInput").value;
+    if (enteredAge > 0 && enteredAge <= 125) {
+        ageIsGood = true;
+    }
+    else {
+        ageIsGood = false;
+    }
+}
+
+function checkEmployRate() {
+    var enteredRate = document.getElementById("employrateInput").value;
+    if (enteredRate >= 0 && enteredRate <= 36) {
+        employRateIsGood = true;
+    }
+    else {
+        employRateIsGood = false;
+    }
+}
+
+
+function setDefaultColor() {
+    document.getElementById("ageWarning").style.color = "black";
+    document.getElementById("rateWarning").style.color = "black";
+}
+
+
+function windowResized() {
+    console.log("window was resized to: " + document.body.clientWidth + " x " + document.body.clientHeight);
+    calcPath();
+    resizeCanvas(document.body.clientWidth, document.body.clientHeight);
+ }
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+    main();
+});
+
+// ************** SCROLLING **************
+function scrollToSketch() {
+    document.getElementById("defaultCanvas0").scrollIntoView();
+}
 
 function scrollUp() {
     
@@ -873,6 +928,18 @@ function scrollUp() {
         document.getElementById("viz_screen").scrollIntoView();
     }
 }
+
+function displaySpecify() {
+    var otherDifficulty = document.getElementById("otherDifficulty");
+    var specifyBox = document.getElementById("specifyDifficulty");
+    if (otherDifficulty.checked) {
+        specifyBox.style.visibility = "visible";
+    }
+    else {
+        specifyBox.style.visibility = "hidden";
+        specifyBox.value = "";
+    }
+}
     
 function scrollDown() {
     if (isInViewport(document.getElementById("opening_screen"))) {
@@ -923,7 +990,6 @@ function scrollDown() {
     document.getElementById("q11").scrollIntoView();
 }
     else if (isInViewport(document.getElementById("q11"))) {
-        console.log("scrolling from origin to age");
         document.getElementById("q12").scrollIntoView();
         // document.getElementById("ageInput").focus();
     }
@@ -931,12 +997,11 @@ function scrollDown() {
         checkAge();
         if (!ageIsGood) {
             console.log("age is not good");
-            document.getElementById("ageWarning").style.color= "white";
+            displayAgeWarning();
         }
         else {
             console.log("age is good");
             document.getElementById("q13").scrollIntoView();
-            console.log("scrolling from age to employmentrate");
         }
     }
     else if (isInViewport(document.getElementById("q13"))) {
@@ -954,53 +1019,27 @@ function scrollDown() {
     }
 }
 
-function checkAge() {
-    var enteredAge = document.getElementById("ageInput").value;
-    if (enteredAge > 0 && enteredAge <= 125) {
-        ageIsGood = true;
-    }
-    else {
-        ageIsGood = false;
+function displayAgeWarning() {
+    document.getElementById("ageWarning").style.color= "white";
+}
+
+function ifOnAge() {
+    // console.log("scrolled");
+    if (isInViewport(document.getElementById("q12"))) {
+        checkAge();
     }
 }
 
-
-function checkEmployRate() {
-    var enteredRate = document.getElementById("employrateInput").value;
-    if (enteredRate >= 0 && enteredRate <= 36) {
-        employRateIsGood = true;
-    }
-    else {
-        employRateIsGood = false;
-    }
+var isInViewport = function (elem) {
+    var bounding = elem.getBoundingClientRect();
+    return (
+        bounding.top >= 0 &&
+        bounding.left >= 0 &&
+        // bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+};
+function resetAll() {
+    window.location.reload(true);
+    document.refresh();
 }
-
-
-function setDefaultColor() {
-    document.getElementById("ageWarning").style.color = "black";
-    document.getElementById("rateWarning").style.color = "black";
-}
-
-
-// function getSelectedText(elementId) {
-//     var element = document.getElementById(elementId);
-
-//     if (element.selectedIndex == -1) {
-//         return null;
-//     }
-//     else {
-//         return element.options[element.selectedIndex].text;
-//     }
-// }
-
-
-function windowResized() {
-    console.log("window was resized to: " + document.body.clientWidth + " x " + document.body.clientHeight);
-    calcPath();
-    resizeCanvas(document.body.clientWidth, document.body.clientHeight);
- }
-
-document.addEventListener("DOMContentLoaded", function(event) { 
-    main();
-});
-
